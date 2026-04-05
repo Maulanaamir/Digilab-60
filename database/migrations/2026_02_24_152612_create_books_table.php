@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('author',100);
-            $table->year('published_year');
-            $table->integer('stock')->default(0);
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->string('author');
+            $table->integer('published_year');
+            $table->integer('stock');
             $table->string('image')->nullable();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,4 +31,3 @@ return new class extends Migration
         Schema::dropIfExists('books');
     }
 };
-
