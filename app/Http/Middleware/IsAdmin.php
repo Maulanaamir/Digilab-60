@@ -13,14 +13,11 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Cek apakah user sudah login DAN apakah dia seorang admin
         if (auth()->check() && auth()->user()->isAdmin()) {
-            // Jika ya, silakan masuk
             return $next($request);
         }
 
-        // Jika bukan admin (misal: siswa), lemparkan kembali ke dashboard
-        // dan berikan pesan error
+     
         return redirect()->route('dashboard')->with('error', 'Akses Ditolak! Halaman ini khusus Administrator.');
     }
 }

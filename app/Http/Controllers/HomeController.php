@@ -1,19 +1,30 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
 
 class HomeController extends Controller
 {
-    public function index() {
-        // Tampilkan semua buku saja, lupakan fitur search bar
-        return view('welcome', [
-            'categories' => Category::all(),
-            'books' => Book::latest()->get()
-        ]);
+    public function index(Request $request)
+    {
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return redirect()->route('dashboard');
+        }
+
+        $categories = Category::orderBy('name', 'ASC')->get(); 
+        
+        $query = Book::query(); 
+
+
+
+        $books = $query->latest()->take(24)->get();
+
+        return view('welcome', compact('categories', 'books'));
     }
 
-    public function show($id) {
-        return view('book-detail', ['book' => Book::find($id)]);
-    }
+
 }
