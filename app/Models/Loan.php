@@ -10,7 +10,7 @@ class Loan extends Model
     //
     use HasFactory;
 
-    protected $fillable = ['user_id', 'book_id', 'borrow_date', 'return_date', 'status'];
+    protected $fillable = ['user_id', 'book_id', 'borrow_date', 'returned_date', 'status'];
 
     public function user()
     {
